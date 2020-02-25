@@ -1,5 +1,5 @@
 {% set name = "pikepdf" %}
-{% set version = "1.10.1" %}
+{% set version = "1.10.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 3777f482fb24e6665e8ac09a8a9beb70380c3b0fb5a890d7aa90dca679a793f4
+  sha256: cb95318058f2aea96b703fff7d647db16b2c751f48bceca92da5922f855724f9
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
-  skip: True  # [win or py<35]
+  script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [win or py<35]
 
 requirements:
   build:
@@ -41,7 +41,7 @@ about:
   license: MPL-2.0
   license_family: OTHER
   license_file: LICENSE.txt
-  summary: 'A Python library for reading and writing PDF, powered by qpdf'
+  summary: A Python library for reading and writing PDF, powered by qpdf
   doc_url: https://pikepdf.readthedocs.io/en/latest/index.html
   dev_url: https://github.com/pikepdf/pikepdf
 
