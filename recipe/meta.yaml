@@ -30,7 +30,7 @@ requirements:
     - setuptools
     - lxml >=4
     - qpdf >=8.4.2
-    - pillow
+    - pillow >=6
 
 test:
   imports:
