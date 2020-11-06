@@ -21,7 +21,6 @@ requirements:
   host:
     - python
     - pip
-    - setuptools >=50
     - setuptools_scm >=4.1
     - wheel >=0.35
     - setuptools_scm_git_archive
@@ -29,7 +28,7 @@ requirements:
     - qpdf >=10.0.3
   run:
     - python
-    - setuptools >=50
+    - setuptools
     - lxml >=4
     - qpdf >=10.0.3
     - pillow >=6
