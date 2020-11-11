@@ -1,5 +1,5 @@
 {% set name = "pikepdf" %}
-{% set version = "1.19.3" %}
+{% set version = "2.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 78dd7990b049da841134b578537f190f00b42a80575903f8c9f59bd68dd8eabb
+  sha256: c539b944234e6f8facaf437f5be259bad6f74b78f1a8e912b430a9474139171d
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
-  skip: true  # [win or py<35]
+  skip: true  # [win or python_impl == 'pypy']
 
 requirements:
   build:
@@ -21,15 +21,16 @@ requirements:
   host:
     - python
     - pip
-    - setuptools_scm
+    - setuptools_scm >=4.1
+    - wheel >=0.35
     - setuptools_scm_git_archive
-    - pybind11 >=2.4.3,< 3
-    - qpdf >=8.4.2
+    - pybind11 >=2.6.0,< 3
+    - qpdf >=10.0.3
   run:
     - python
     - setuptools
     - lxml >=4
-    - qpdf >=8.4.2
+    - qpdf >=10.0.3
     - pillow >=6
 
 test:
