@@ -29,10 +29,12 @@ requirements:
   run:
     - python
     - setuptools
+    - deprecation
     - lxml >=4
     - qpdf >=10.6.2
     - pillow >=6
-    - packaging >=20
+    - importlib-metadata >=4  # [py<3.8]
+    - typing-extensions>=4  # [py<3.8]
 
 test:
   imports:
