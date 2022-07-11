@@ -34,7 +34,7 @@ requirements:
     - qpdf >=10.6.2
     - pillow >=6
     - importlib-metadata >=4  # [py<3.8]
-    - typing-extensions>=4  # [py<3.8]
+    - typing-extensions >=4  # [py<3.8]
 
 test:
   imports:
