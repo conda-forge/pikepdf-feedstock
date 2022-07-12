@@ -33,6 +33,7 @@ requirements:
     - lxml >=4
     - qpdf >=10.6.2
     - pillow >=6
+    - packaging
     - importlib-metadata >=4  # [py<38]
     - typing-extensions >=4  # [py<38]
 
