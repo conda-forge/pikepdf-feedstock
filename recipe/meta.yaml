@@ -37,7 +37,6 @@ requirements:
 
 test:
   requires:
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - pip
   commands:
     - pip check
