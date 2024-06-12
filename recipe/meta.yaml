@@ -29,7 +29,6 @@ requirements:
     - qpdf 11
   run:
     - python
-    - setuptools
     - pillow >=10.0.1
     - deprecated
     - {{ pin_compatible("qpdf") }}
