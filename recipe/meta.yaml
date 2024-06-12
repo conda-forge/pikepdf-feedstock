@@ -37,8 +37,12 @@ requirements:
     - packaging
 
 test:
+  requires:
+    - pip
+  commands:
+    - pip check
   imports:
-    - pikepdf
+    - pikepdf    # [build_platform != target_platform]
 
 about:
   home: https://github.com/pikepdf/pikepdf
