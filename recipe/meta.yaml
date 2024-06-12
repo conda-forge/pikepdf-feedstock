@@ -41,7 +41,7 @@ test:
   commands:
     - pip check
   imports:
-    - pikepdf    # [build_platform == target_platform]
+    - pikepdf
 
 about:
   home: https://github.com/pikepdf/pikepdf
