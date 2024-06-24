@@ -31,6 +31,8 @@ requirements:
     - python
     - pillow >=10.0.1
     - deprecated
+    # TODO: Remove when `qpdf` version `12` is added.
+    # xref: https://github.com/conda-forge/pikepdf-feedstock/issues/124
     - {{ pin_compatible("qpdf") }}
     - lxml >=4.8
     - packaging
