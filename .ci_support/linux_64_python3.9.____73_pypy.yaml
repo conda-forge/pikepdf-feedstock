@@ -24,6 +24,8 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.9.* *_73_pypy
+qpdf:
+- '11'
 target_platform:
 - linux-64
 zip_keys:
