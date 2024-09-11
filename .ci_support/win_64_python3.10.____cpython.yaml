@@ -18,3 +18,6 @@ qpdf:
 - '11'
 target_platform:
 - win-64
+zip_keys:
+- - python
+  - channel_sources
