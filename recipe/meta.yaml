@@ -1,5 +1,5 @@
 {% set name = "pikepdf" %}
-{% set version = "9.3.0" %}
+{% set version = "9.4.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 906d8afc1aa4f2f7409381a58e158207170f3aeba8ad2aec40072a648e8a2914
+  sha256: a95d5c09881ccf2f5c8eb577985728a12bf901fde1be18f73104295f281e4eb8
 
 build:
   number: 0
