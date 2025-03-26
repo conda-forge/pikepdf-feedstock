@@ -10,7 +10,7 @@ source:
   sha256: 190b3bb4891a7a154315f505d7dcd557ef21e8130cea8b78eb9646f8d67072ed
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [py<39]
 
@@ -32,9 +32,6 @@ requirements:
     - python
     - pillow >=10.0.1
     - deprecated
-    # TODO: Remove when `qpdf` version `12` is added.
-    # xref: https://github.com/conda-forge/pikepdf-feedstock/issues/124
-    - {{ pin_compatible("qpdf") }}
     - lxml >=4.8
     - packaging
 
