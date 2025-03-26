@@ -32,7 +32,6 @@ requirements:
     - python
     - pillow >=10.0.1
     - deprecated
-    - qpdf
     - lxml >=4.8
     - packaging
 
