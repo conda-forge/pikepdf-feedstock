@@ -14,10 +14,5 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.12.* *_cpython
-qpdf:
-- '12'
 target_platform:
 - win-64
-zip_keys:
-- - python
-  - channel_sources
