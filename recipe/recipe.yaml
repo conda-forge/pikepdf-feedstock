@@ -1,0 +1,59 @@
+schema_version: 1
+
+context:
+  name: pikepdf
+  version: "10.5.1"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  sha256: ffa6c7d0b77deb3af9735e0b0cae177c897431e10d342bb171b62e5527a622b7
+
+build:
+  number: 0
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  build:
+    - ${{ stdlib("c") }}
+    - ${{ compiler("c") }}
+    - ${{ compiler("cxx") }}
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+  host:
+    - python
+    - pip
+    - setuptools >=77.0.3
+    - wheel >=0.37
+    - pybind11 >=3
+    - qpdf >=11.9.0
+  run:
+    - python
+    - pillow >=10.0.1
+    - deprecated
+    - lxml >=4.8
+    - packaging
+
+tests:
+  - python:
+      imports:
+        - pikepdf
+      pip_check: true
+
+about:
+  license: MPL-2.0
+  license_file: LICENSE.txt
+  summary: A Python library for reading and writing PDF, powered by qpdf
+  homepage: https://github.com/pikepdf/pikepdf
+  repository: https://github.com/pikepdf/pikepdf
+  documentation: https://pikepdf.readthedocs.io/
+
+extra:
+  recipe-maintainers:
+    - thewchan
+    - carlodri
