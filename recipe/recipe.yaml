@@ -13,7 +13,7 @@ source:
   sha256: ffa6c7d0b77deb3af9735e0b0cae177c897431e10d342bb171b62e5527a622b7
 
 build:
-  number: 1
+  number: 2
   script: ${{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -22,9 +22,9 @@ requirements:
     - ${{ compiler("c") }}
     - ${{ compiler("cxx") }}
     - if: build_platform != target_platform
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
+      then:
+        - python
+        - cross-python_${{ target_platform }}
   host:
     - python
     - pip
