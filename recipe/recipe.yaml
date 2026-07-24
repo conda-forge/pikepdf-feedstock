@@ -13,7 +13,7 @@ source:
   sha256: 9f134806b2fe608ccb21379a664ddcefeac3f6944100d343b350299d3c69754e
 
 build:
-  number: 0
+  number: 1
   script:
     - if: win
       then:
