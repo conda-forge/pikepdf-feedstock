@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: pikepdf
-  version: "10.10.0"
+  version: "10.11.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: 9f134806b2fe608ccb21379a664ddcefeac3f6944100d343b350299d3c69754e
+  sha256: 4bebc59ac74411064e7c97a4036174023e22ccbecd22b78750ab76551eb38988
 
 build:
   number: 0
