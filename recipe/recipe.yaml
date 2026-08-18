@@ -48,7 +48,7 @@ requirements:
     - pip
     - scikit-build-core >=0.10
     - nanobind >=2.0
-    - qpdf >=12.2.0
+    - qpdf >=12.3.2
   run:
     - python
     - pillow >=10.0.1
