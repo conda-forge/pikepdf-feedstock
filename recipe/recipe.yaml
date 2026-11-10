@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: pikepdf
-  version: "10.16.0"
+  version: "10.17.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: d9541429f079f7838f2856fea5c2ad165885693cdb36894e73d40d1b845d2e11
+  sha256: de4ccaae83628e86c1fd473b384c09c6ff1dd35a583a8dacbf61d2aa4bea843b
 
 build:
   number: 0
@@ -24,7 +24,14 @@ build:
         - set "LIB=%LIBRARY_PREFIX%\lib;%LIB%"
         - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
       else:
-        - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+        - if: build_platform != target_platform
+          then:
+            # CMake >=4.4.5 FindPython can't locate free-threaded (cp314t) headers when
+            # cross-compiling with CMP0190=OLD; let it query the crossenv interpreter instead.
+            # https://github.com/conda-forge/conda-forge.github.io/issues/2901
+            - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation -Ccmake.define.CMAKE_POLICY_DEFAULT_CMP0190=NEW -Ccmake.define.CMAKE_CROSSCOMPILING_EMULATOR=/usr/bin/env
+          else:
+            - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
@@ -48,7 +55,7 @@ requirements:
     - pip
     - scikit-build-core >=0.10
     - nanobind >=2.0
-    - qpdf >=12.3.2
+    - qpdf >=12.4.2
   run:
     - python
     - pillow >=10.0.1
