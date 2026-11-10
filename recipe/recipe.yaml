@@ -24,7 +24,14 @@ build:
         - set "LIB=%LIBRARY_PREFIX%\lib;%LIB%"
         - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
       else:
-        - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+        - if: build_platform != target_platform
+          then:
+            # CMake >=4.4.5 FindPython can't locate free-threaded (cp314t) headers when
+            # cross-compiling with CMP0190=OLD; let it query the crossenv interpreter instead.
+            # https://github.com/conda-forge/conda-forge.github.io/issues/2901
+            - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation -Ccmake.define.CMAKE_POLICY_DEFAULT_CMP0190=NEW -Ccmake.define.CMAKE_CROSSCOMPILING_EMULATOR=/usr/bin/env
+          else:
+            - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
