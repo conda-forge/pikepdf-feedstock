@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: pikepdf
-  version: "10.17.0"
+  version: "10.18.2"
 
 package:
   name: ${{ name|lower }}
@@ -10,28 +10,28 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: de4ccaae83628e86c1fd473b384c09c6ff1dd35a583a8dacbf61d2aa4bea843b
+  sha256: b32ee8b0ffe606059dbf3386ebe1dae6e2601098277e22e8c75c2ee982436b43
 
 build:
   number: 0
   script:
-    - if: win
-      then:
-        - set "CMAKE_GENERATOR=Ninja"
-        - set CMAKE_GENERATOR_PLATFORM=
-        - set CMAKE_GENERATOR_TOOLSET=
-        - set "INCLUDE=%LIBRARY_PREFIX%\include;%INCLUDE%"
-        - set "LIB=%LIBRARY_PREFIX%\lib;%LIB%"
-        - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-      else:
-        - if: build_platform != target_platform
-          then:
-            # CMake >=4.4.5 FindPython can't locate free-threaded (cp314t) headers when
-            # cross-compiling with CMP0190=OLD; let it query the crossenv interpreter instead.
-            # https://github.com/conda-forge/conda-forge.github.io/issues/2901
-            - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation -Ccmake.define.CMAKE_POLICY_DEFAULT_CMP0190=NEW -Ccmake.define.CMAKE_CROSSCOMPILING_EMULATOR=/usr/bin/env
-          else:
-            - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+    env:
+      CMAKE_GENERATOR: Ninja
+    content:
+      - if: win
+        then:
+          - set CMAKE_GENERATOR_PLATFORM=
+          - set CMAKE_GENERATOR_TOOLSET=
+          - set "INCLUDE=%LIBRARY_PREFIX%\include;%INCLUDE%"
+          - set "LIB=%LIBRARY_PREFIX%\lib;%LIB%"
+      - if: unix and build_platform != target_platform
+        then:
+          # CMake >=4.4.5 FindPython can't locate free-threaded (cp314t) headers when
+          # cross-compiling with CMP0190=OLD; let it query the crossenv interpreter instead.
+          # https://github.com/conda-forge/conda-forge.github.io/issues/2901
+          - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation -Ccmake.define.CMAKE_POLICY_DEFAULT_CMP0190=NEW -Ccmake.define.CMAKE_CROSSCOMPILING_EMULATOR=/usr/bin/env
+        else:
+          - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
@@ -39,34 +39,39 @@ requirements:
     - ${{ compiler("c") }}
     - ${{ compiler("cxx") }}
     - cmake
-    - if: unix
-      then:
-        - make
-    - if: win
-      then:
-        - ninja
+    - ninja
     - if: build_platform != target_platform
       then:
         - python
         - cross-python_${{ target_platform }}
-        - nanobind >=2.0
+        - nanobind >=2.5.0
   host:
     - python
     - pip
     - scikit-build-core >=0.10
-    - nanobind >=2.0
+    - nanobind >=2.5.0
     - qpdf >=12.4.2
   run:
     - python
     - pillow >=10.0.1
     - lxml >=4.8
     - packaging
+    # pdfa extra
+    - jsonschema >=4.18
+    - referencing
+    - fonttools >=4.40
 
 tests:
   - python:
       imports:
         - pikepdf
+        - pikepdf.pdfa
       pip_check: true
+  - script:
+      - python -c "from pikepdf.pdfa import _deps; _deps.require()"
+    requirements:
+      run:
+        - python
 
 about:
   license: MPL-2.0
