@@ -13,7 +13,7 @@ source:
   sha256: c62ffdbbbfe8739272fe1158e9f13c403acb53e468425a479fc925781c11f63a
 
 build:
-  number: 0
+  number: 1
   script:
     env:
       CMAKE_GENERATOR: Ninja
